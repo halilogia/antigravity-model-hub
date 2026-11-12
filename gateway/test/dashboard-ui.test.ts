@@ -152,7 +152,7 @@ test('registry metadata supplies settings, routing and model selectors including
     w.renderPricingEditor({});
     assert.ok(w.document.getElementById('pe-future-cloud'));
     assert.ok(w.collectPricingFromEditor()['future-cloud']);
-    assert.ok(w.document.querySelector('img[src="/antigravity-logo.png"], img[src="antigravity-logo.png"]'), 'official dashboard logo stays intact');
+    assert.ok(w.document.querySelector('img[src="/logo.png"], img[src="logo.png"]'), 'dashboard logo present');
   } finally { dom.window.close(); }
 });
 

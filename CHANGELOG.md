@@ -2,6 +2,11 @@
 
 Release history preserved from the project README. Historical entries describe the behavior of their release; see [compatibility and recovery](docs/compatibility.md) for current installation guidance.
 
+### Unreleased — OpenCode derivative
+
+- Added OpenCode Go/Console model picker and independent encrypted API key storage.
+- Compliance: added `NOTICE` and `docs/LEGAL.md`, unofficial-derivative notice in all READMEs, replaced Google Antigravity logo and icons with neutral placeholders, updated the dashboard logo test.
+
 ### Unreleased — Local hardening
 
 - Text attachments are resolved with the same local file URL check as the request translators. File URLs that name another host are rejected in both places.

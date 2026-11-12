@@ -1,8 +1,6 @@
 <div dir="rtl">
 
-<p align="center">
-  <img src="gateway/dashboard/antigravity-logo.png" width="96" height="96" alt="شعار Google Antigravity">
-</p>
+> **Unofficial derivative** of [vahapogut/antigravity-add-model](https://github.com/vahapogut/antigravity-add-model) (Apache-2.0). Not affiliated with or endorsed by Google (Antigravity), OpenCode or the upstream author. See [NOTICE](NOTICE) and [LICENSE](LICENSE).
 
 <h1 align="center">تمكين النماذج المخصصة في Antigravity</h1>
 

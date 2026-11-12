@@ -17,7 +17,6 @@ in the dashboard. Token and cost totals are estimates.
 
 ## Logo
 
-`dashboard/antigravity-logo.png` is the unmodified full-color icon downloaded
-from [Google Antigravity's official press assets](https://antigravity.google/press)
-([source PNG](https://antigravity.google/assets/image/brand/antigravity-icon__full-color.png)).
-It replaces the previous custom gateway mark in the README and dashboard.
+The upstream project used Google Antigravity's press-asset icon. This
+derivative is unofficial and does not use Google's mark: `dashboard/logo.png`,
+`icon.png` and the tray templates are neutral generated placeholders.
