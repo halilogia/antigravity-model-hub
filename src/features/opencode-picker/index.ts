@@ -10,6 +10,17 @@ namespace OpenCodePicker {
   export function mount(parent: HTMLElement, api: Api, onSaved: () => Promise<void>): void {
     const box = document.createElement('div');
     box.id = 'oc-model-picker';
+    box.style.cssText = 'width:100%;min-width:0;text-align:left';
+    const styles = document.createElement('style');
+    styles.textContent = `
+      #oc-model-picker .oc-choice{display:flex;flex-direction:row;align-items:flex-start;justify-content:flex-start;gap:10px;width:100%;padding:9px 10px;margin:0;border:1px solid #303036;border-radius:6px;cursor:pointer;text-align:left}
+      #oc-model-picker .oc-choice:has(input:checked){border-color:#8073bd;background:#24212e}
+      #agy-custom-models-section #oc-model-picker .oc-choice input[type=checkbox]{width:16px;height:16px;min-width:16px;flex:0 0 16px;padding:0;margin:3px 0 0;accent-color:#a78bfa}
+      #oc-model-picker .oc-choice-text{display:flex;flex-direction:column;gap:2px;min-width:0;overflow-wrap:anywhere;text-align:left}
+      #oc-model-picker .oc-choice-id{font-size:12px;color:#a1a1aa}
+      #oc-model-picker select{font:inherit;width:100%;padding:8px 10px;border:1px solid #414149;border-radius:6px;background:#25252a;color:#fafafa}
+    `;
+    box.append(styles);
     const make = <K extends keyof HTMLElementTagNameMap>(tag: K, text = '') => {
       const node = document.createElement(tag);
       node.textContent = text;
@@ -33,7 +44,7 @@ namespace OpenCodePicker {
     const list = make('div'); list.style.cssText = 'max-height:280px;overflow:auto;display:grid;gap:8px;margin:12px 0'; box.append(list);
     const saveButton = make('button', 'Add selected models'); saveButton.type = 'button';
     saveButton.className = 'agy-btn'; saveButton.disabled = true; box.append(saveButton);
-    const status = make('p', 'Enter your API key to load the live model catalog.');
+    const status = make('p', 'Enter your API key to load models. Checked models are added only when you click Add selected models; built-in models stay unchanged.');
     status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite'); box.append(status);
     parent.append(box);
     let choices: Choice[] = [], selected = new Set<string>(), version = 0, busy = false;
@@ -47,14 +58,19 @@ namespace OpenCodePicker {
       const query = search.value.trim().toLowerCase();
       const visible = choices.filter(model => `${model.id} ${model.displayName || ''}`.toLowerCase().includes(query));
       for (const model of visible) {
-        const label = make('label'); label.style.cssText = 'display:flex;align-items:center;gap:8px';
+        const label = make('label'); label.className = 'oc-choice';
         const checkbox = make('input'); checkbox.type = 'checkbox'; checkbox.checked = selected.has(model.id); checkbox.disabled = busy;
         checkbox.addEventListener('change', () => {
           if (checkbox.checked) selected.add(model.id); else selected.delete(model.id);
           saveButton.disabled = busy || !selected.size;
           saveButton.textContent = selected.size ? `Add selected models (${selected.size})` : 'Add selected models';
         });
-        label.append(checkbox, make('span', model.displayName && model.displayName !== model.id ? `${model.displayName} · ${model.id}` : model.id)); list.append(label);
+        const caption = make('span'); caption.className = 'oc-choice-text';
+        caption.append(make('span', model.displayName || model.id));
+        if (model.displayName && model.displayName !== model.id) {
+          const id = make('span', model.id); id.className = 'oc-choice-id'; caption.append(id);
+        }
+        label.append(checkbox, caption); list.append(label);
       }
       if (choices.length && !visible.length) list.append(make('p', 'No matching models.'));
       saveButton.disabled = busy || !selected.size;
@@ -79,7 +95,7 @@ namespace OpenCodePicker {
         const unique = new Map<string, Choice>();
         for (const model of result.models || []) if (typeof model.id === 'string' && model.id.trim()) unique.set(model.id, model);
         choices = [...unique.values()]; fetched = input;
-        message(choices.length ? `${choices.length} models loaded. Select the models to add. Generation has not been tested.` : 'OpenCode returned no models for this plan.');
+        message(choices.length ? `${choices.length} models loaded. Check models, then click Add selected models to add them to the chat picker. No built-in model is replaced.` : 'OpenCode returned no models for this plan.');
       } catch (error) { if (box.isConnected && attempt === version) message(error instanceof Error ? error.message : 'Could not load models.', true); }
       finally { if (box.isConnected && attempt === version) lock(false); }
     });
