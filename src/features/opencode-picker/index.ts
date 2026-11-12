@@ -3,6 +3,8 @@ namespace OpenCodePicker {
   interface Choice { id: string; displayName?: string; contextWindow?: number; maxOutputTokens?: number; supportsVision?: boolean; supportsThinking?: boolean }
   interface Result { success: boolean; error?: string; models?: Choice[] }
   interface Api {
+    getConnectionStatus(): Promise<Result & { saved?: Record<string, boolean> }>;
+    saveConnection(input: { provider: string; apiKey: string }): Promise<Result>;
     discoverModels(input: any): Promise<Result>;
     getCustomModels(): Promise<any[]>;
     saveCustomModel(input: any): Promise<Result>;
@@ -37,7 +39,10 @@ namespace OpenCodePicker {
     field('OpenCode plan', plan);
     const key = make('input'); key.id = 'oc-api-key'; key.type = 'password'; key.autocomplete = 'off';
     key.placeholder = 'OpenCode Console API key'; field('API key', key);
+    const saveKey = make('button', 'Save API key'); saveKey.type = 'button'; saveKey.className = 'agy-btn'; saveKey.id = 'oc-save-key'; box.append(saveKey);
+    const keyStatus = make('p', 'Checking saved connection…'); keyStatus.className = 'agy-muted'; box.append(keyStatus);
     const fetchButton = make('button', 'Fetch OpenCode models'); fetchButton.type = 'button';
+    fetchButton.id = 'oc-fetch-models';
     fetchButton.className = 'agy-btn agy-primary'; box.append(fetchButton);
     const search = make('input'); search.type = 'search'; search.placeholder = 'Search models';
     field('Search OpenCode models', search);
@@ -49,7 +54,17 @@ namespace OpenCodePicker {
     parent.append(box);
     let choices: Choice[] = [], selected = new Set<string>(), version = 0, busy = false;
     let fetched: { provider: string; apiKey: string; apiUrl: string } | undefined;
-    const connection = () => ({ provider: plan.value, apiKey: key.value.trim(),
+    let savedKeys: Record<string, boolean> = {};
+    const keyLabel = () => {
+      key.placeholder = savedKeys[plan.value] ? 'Saved key — leave blank to reuse, or enter a replacement' : 'OpenCode Console API key';
+      keyStatus.textContent = savedKeys[plan.value] ? 'API key saved for this plan.' : 'No API key saved for this plan.';
+    };
+    void api.getConnectionStatus().then(result => {
+      if (!box.isConnected) return;
+      if (!result.success) { keyStatus.textContent = result.error || 'Could not check saved connection.'; return; }
+      savedKeys = result.saved || {}; keyLabel();
+    }).catch(() => { keyStatus.textContent = 'Could not check saved connection.'; });
+    const connection = () => ({ provider: plan.value, apiKey: key.value.trim() || (savedKeys[plan.value] ? '__opencode_saved_key__' : ''),
       apiUrl: `https://opencode.ai/inference/${plan.value === 'opencode-go' ? 'go/' : ''}openai/v1/chat/completions` });
     const message = (text: string, error = false) => { status.textContent = text; status.className = error ? 'agy-status agy-error' : 'agy-status'; };
     const check = (result: Result) => { if (!result?.success) throw new Error(result?.error || 'OpenCode request failed.'); return result; };
@@ -76,12 +91,23 @@ namespace OpenCodePicker {
       saveButton.disabled = busy || !selected.size;
       saveButton.textContent = selected.size ? `Add selected models (${selected.size})` : 'Add selected models';
     };
-    const lock = (value: boolean) => { busy = value; plan.disabled = key.disabled = fetchButton.disabled = value; render(); };
+    const lock = (value: boolean) => { busy = value; plan.disabled = key.disabled = fetchButton.disabled = saveKey.disabled = value; render(); };
     const invalidate = () => {
       version++; choices = []; selected.clear(); fetched = undefined; render();
       message('Connection changed. Fetch the catalog again.');
     };
-    plan.addEventListener('change', invalidate); key.addEventListener('input', invalidate);
+    plan.addEventListener('change', () => { key.value = ''; keyLabel(); invalidate(); }); key.addEventListener('input', invalidate);
+    saveKey.addEventListener('click', async () => {
+      if (busy) return;
+      if (!key.value.trim()) { message(savedKeys[plan.value] ? 'The API key is already saved.' : 'Enter your OpenCode API key.', !savedKeys[plan.value]); return; }
+      lock(true);
+      try {
+        check(await api.saveConnection({ provider: plan.value, apiKey: key.value.trim() }));
+        savedKeys[plan.value] = true; key.value = ''; keyLabel(); invalidate();
+        message('API key saved. You can close settings and reuse it later.');
+      } catch (error) { message(error instanceof Error ? error.message : 'Could not save API key.', true); }
+      finally { if (box.isConnected) lock(false); }
+    });
     search.addEventListener('input', render);
     fetchButton.addEventListener('click', async () => {
       if (busy) return;
@@ -90,6 +116,10 @@ namespace OpenCodePicker {
       const attempt = ++version; choices = []; selected.clear(); fetched = undefined; lock(true);
       message('Loading OpenCode models…');
       try {
+        if (input.apiKey !== '__opencode_saved_key__') {
+          check(await api.saveConnection({ provider: input.provider, apiKey: input.apiKey }));
+          savedKeys[input.provider] = true; key.value = ''; keyLabel(); input.apiKey = '__opencode_saved_key__';
+        }
         const result = check(await api.discoverModels({ ...input, apiFormat: 'openai' }));
         if (!box.isConnected || attempt !== version) return;
         const unique = new Map<string, Choice>();

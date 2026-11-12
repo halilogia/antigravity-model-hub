@@ -8,6 +8,8 @@ This is a local derivative of vahapogut/antigravity-add-model at e77954b9a58e5b9
 
 Configuration is isolated under `~/.gemini/antigravity/opencode-model-bridge/`. Existing addon models and API keys are not imported or modified. New installations start with an empty catalog, without upstream example models.
 
+OpenCode connections can be saved independently with Save API key. Fetching a catalog also saves the entered key. The backend encrypts keys in opencode-connections.json and reports only whether each plan has a saved key. Reopened settings reuse it without displaying the secret. Existing saved model credentials remain usable. A Go connection and a Console connection are separate.
+
 Build: `npm ci --ignore-scripts`, `npm run build`.
 Install with Antigravity closed: `node scripts/deploy.mjs --check`, then `node scripts/deploy.mjs`.
 Restore with Antigravity closed: `node scripts/deploy.mjs --restore`.

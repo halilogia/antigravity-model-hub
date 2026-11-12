@@ -20,6 +20,7 @@ export const REQUIRED_BUILD_FILES = [
   'customPreload.js',
   'contextUsagePreload.js',
   'customIpc.js',
+  'features/opencode-connection/index.js',
   'modelStore.js',
   'modelManagement.js',
   'modelActions.js',

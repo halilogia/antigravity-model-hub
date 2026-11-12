@@ -91,6 +91,8 @@ interface AccountQuota {
   email?: string;
 }
 const storageAPI = {
+  getConnectionStatus: (): Promise<any> => ipcRenderer.invoke('opencode:connection-status'),
+  saveConnection: (input: { provider: string; apiKey: string }): Promise<ActionResult> => ipcRenderer.invoke('opencode:save-connection', input),
   getCustomModels: (): Promise<CustomModelEntry[]> => ipcRenderer.invoke('storage:get-custom-models'),
   saveCustomModel: (model: CustomModelEntry): Promise<ActionResult> =>
     ipcRenderer.invoke('storage:save-custom-model', model),
