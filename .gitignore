@@ -20,3 +20,6 @@ scratch/
 dist/__mocks__/
 dist/*.test.js
 dist/**/*.test.js
+
+# GravityGuard runtime state
+.gravityguard/
