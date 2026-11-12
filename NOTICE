@@ -1,0 +1,19 @@
+OpenCode Model Bridge
+
+This project is a modified derivative of antigravity-add-model
+(https://github.com/vahapogut/antigravity-add-model), commit
+e77954b9a58e5b9408e8d3bc1cedbb5a6c456125, licensed under the Apache License,
+Version 2.0. The original LICENSE is retained unchanged in this repository.
+
+Changes made in this derivative:
+- Added an OpenCode (Go and Console/Zen) model picker to the desktop settings
+  (src/features/opencode-picker).
+- Added independent, encrypted storage of OpenCode API keys
+  (src/features/opencode-connection).
+- Integrated both features into the settings preload and build script.
+- Removed upstream example models from the initial catalog.
+- Replaced the Google Antigravity logo in the README with a disclaimer.
+
+This project is unofficial. It is not affiliated with, endorsed by or
+sponsored by Google (Antigravity), OpenCode or the authors of the upstream
+project. All product names are trademarks of their respective owners.

@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="gateway/dashboard/antigravity-logo.png" width="96" height="96" alt="Google Antigravity logo">
-</p>
+> **Unofficial derivative.** This is a modified fork of [vahapogut/antigravity-add-model](https://github.com/vahapogut/antigravity-add-model) (Apache-2.0, based on commit `e77954b`), extended with an OpenCode Go/Zen model picker. See [NOTICE](NOTICE) for the list of changes and [LICENSE](LICENSE). Not affiliated with or endorsed by Google (Antigravity), OpenCode or the upstream author. It patches a locally installed app for personal use; check the terms of service of the apps and providers you use before distributing or using it.
 
 <h1 align="center">Antigravity Custom Model Enabler</h1>
 
