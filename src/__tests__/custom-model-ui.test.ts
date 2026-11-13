@@ -191,6 +191,10 @@ async function fixture(
   });
   Object.assign(dom.window, {
     nativeStorage: vendorStorage,
+    // The build concatenates the picker into the same preload; this vendor-only
+    // test transpiles customPreload.ts on its own, so it provides the namespace.
+    // The picker itself is covered by opencode-picker.test.ts.
+    OpenCodePicker: { mount: vi.fn() },
     fetch: vi.fn(async () => new Response('{"models":{}}', { headers: { 'content-type': 'application/json' } })),
     confirm: vi.fn(() => {
       throw new Error('Blocking native confirmation dialogs must not be used.');

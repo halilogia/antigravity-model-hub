@@ -18,7 +18,7 @@ describe('saved OpenCode connections', () => {
     store.save({ provider: 'opencode-go', apiKey: 'private-test-key' });
     expect(fs.readFileSync(path.join(directory, 'opencode-connections.json'), 'utf8')).not.toContain('private-test-key');
     const reopened = createOpenCodeConnections(directory, codec, () => []);
-    expect(reopened.status()).toEqual({ success: true, saved: { 'opencode-go': true, opencode: false } });
+    expect(reopened.status()).toEqual({ success: true, saved: { 'opencode-go': true, opencode: false, google: false } });
     expect(reopened.resolve(input).apiKey).toBe('private-test-key');
   });
   it('refuses to send a saved key to another URL, plan, or custom authorization header', () => {
@@ -32,6 +32,17 @@ describe('saved OpenCode connections', () => {
     const { store } = fixture([{ provider: 'opencode-go', apiKey: codec.encryptString('legacy-test-key'), encrypted: true }]);
     expect(store.status().saved['opencode-go']).toBe(true);
     expect(store.resolve(input).apiKey).toBe('legacy-test-key');
+  });
+  it('stores a Google AI Studio key separately and pins it to the Gemini endpoint', () => {
+    const { store } = fixture();
+    const googleInput = { provider: 'google', apiFormat: 'google', apiUrl: 'https://generativelanguage.googleapis.com/v1beta', apiKey: SAVED_KEY };
+    store.save({ provider: 'google', apiKey: 'google-test-key' });
+    expect(store.status().saved.google).toBe(true);
+    expect(store.status().saved['opencode-go']).toBe(false);
+    expect(store.resolve(googleInput).apiKey).toBe('google-test-key');
+    expect(() => store.resolve({ ...googleInput, apiFormat: 'openai' })).toThrow('only be used');
+    expect(() => store.resolve({ ...googleInput, apiUrl: 'https://example.com/v1beta' })).toThrow('only be used');
+    expect(() => store.resolve({ ...input })).toThrow('No API key saved');
   });
   it('rejects empty and placeholder credentials and permits replacement', () => {
     const { store } = fixture();

@@ -39,7 +39,7 @@ describe('OpenCode Settings picker', () => {
   it('requires a key and never issues generation requests', async () => {
     const f = fixture(); await f.click('button');
     expect(f.api.discoverModels).not.toHaveBeenCalled();
-    expect(f.find('[role=status]').textContent).toContain('Enter your OpenCode API key');
+    expect(f.find('[role=status]').textContent).toContain('Enter your API key for the selected provider');
     await f.load();
     expect(f.api.saveConnection).toHaveBeenCalledWith({ provider: 'opencode-go', apiKey: 'test-key' });
     expect(f.api.discoverModels).toHaveBeenCalledWith({ provider: 'opencode-go', apiKey: '__opencode_saved_key__', apiFormat: 'openai', apiUrl: 'https://opencode.ai/inference/go/openai/v1/chat/completions' });
@@ -64,6 +64,26 @@ describe('OpenCode Settings picker', () => {
     expect(f.api.discoverModels.mock.calls.at(-1)?.[0].apiUrl).toBe('https://opencode.ai/inference/openai/v1/chat/completions');
     f.input('#oc-api-key', 'replacement');
     expect(f.find('input[type=checkbox]')).toBeNull();
+  });
+  it('loads Google AI Studio models through the Gemini endpoint and saves the google wire format', async () => {
+    const f = fixture();
+    f.input('#oc-plan', 'google', 'change');
+    f.input('#oc-api-key', 'google-test-key');
+    await f.click('#oc-fetch-models');
+    expect(f.api.discoverModels.mock.calls.at(-1)?.[0]).toMatchObject({
+      provider: 'google',
+      apiUrl: 'https://generativelanguage.googleapis.com/v1beta',
+      apiFormat: 'google',
+    });
+    await f.click('input[type=checkbox]');
+    await f.click('button:last-of-type');
+    expect(f.api.saveCustomModel.mock.calls[0][0]).toMatchObject({
+      provider: 'google',
+      apiFormat: 'google',
+      apiUrl: 'https://generativelanguage.googleapis.com/v1beta',
+      name: 'models/google/deepseek',
+      displayName: 'DeepSeek (Google AI Studio)',
+    });
   });
   it('shows authentication failures without retaining stale model choices', async () => {
     const f = fixture(); await f.load();

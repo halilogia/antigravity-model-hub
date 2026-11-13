@@ -3,12 +3,23 @@ import * as path from 'node:path';
 import { writeJsonAtomic, type SecretCodec } from '../../modelStore';
 
 export const SAVED_KEY = '__opencode_saved_key__';
-const providers = ['opencode-go', 'opencode'] as const;
+/**
+ * Every plan pins one endpoint and one wire format. A saved key is only ever
+ * re-attached to that exact pair, so a tampered model entry cannot redirect it.
+ */
+const PLANS = {
+  'opencode-go': { apiUrl: 'https://opencode.ai/inference/go/openai/v1/chat/completions', apiFormat: 'openai' },
+  opencode: { apiUrl: 'https://opencode.ai/inference/openai/v1/chat/completions', apiFormat: 'openai' },
+  google: { apiUrl: 'https://generativelanguage.googleapis.com/v1beta', apiFormat: 'google' },
+} as const;
+type PlanId = keyof typeof PLANS;
+export const PLAN_IDS = Object.keys(PLANS) as PlanId[];
+const providers = PLAN_IDS;
 export function createOpenCodeConnections(directory: string, codec: SecretCodec, readModels: () => any[]) {
   const filename = path.join(directory, 'opencode-connections.json');
-  const providerId = (value: unknown): string => {
-    if (!providers.includes(value as any)) throw new Error('Choose OpenCode Go or Console.');
-    return value as string;
+  const providerId = (value: unknown): PlanId => {
+    if (!providers.includes(value as PlanId)) throw new Error('Choose OpenCode Go, OpenCode Console or Google AI Studio.');
+    return value as PlanId;
   };
   const read = (): Record<string, string> => {
     try { return JSON.parse(fs.readFileSync(filename, 'utf8')).keys || {}; }
@@ -35,7 +46,7 @@ export function createOpenCodeConnections(directory: string, codec: SecretCodec,
     },
     save: (input: { provider: string; apiKey: string }) => {
       const provider = providerId(input?.provider), apiKey = input?.apiKey?.trim();
-      if (!apiKey || apiKey === SAVED_KEY || apiKey === 'none' || apiKey.length > 8192 || /[\r\n]/.test(apiKey)) throw new Error('Enter a valid OpenCode API key.');
+      if (!apiKey || apiKey === SAVED_KEY || apiKey === 'none' || apiKey.length > 8192 || /[\r\n]/.test(apiKey)) throw new Error('Enter a valid API key for this plan.');
       const keys = read(); keys[provider] = codec.encryptString(apiKey);
       fs.mkdirSync(directory, { recursive: true, mode: 0o700 });
       writeJsonAtomic(filename, { version: 1, keys });
@@ -44,8 +55,9 @@ export function createOpenCodeConnections(directory: string, codec: SecretCodec,
     resolve: (input: any) => {
       if (input?.apiKey !== SAVED_KEY) return input;
       const provider = providerId(input.provider);
-      const expected = `https://opencode.ai/inference/${provider === 'opencode-go' ? 'go/' : ''}openai/v1/chat/completions`;
-      if (input.apiUrl !== expected || input.apiFormat !== 'openai' || input.customHeaders) throw new Error('Saved OpenCode keys can only be used with the OpenCode API.');
+      const plan = PLANS[provider];
+      if (input.apiUrl !== plan.apiUrl || input.apiFormat !== plan.apiFormat || input.customHeaders)
+        throw new Error('Saved API keys can only be used with the endpoint and format of their own plan.');
       return { ...input, apiKey: secret(provider) };
     },
   };
