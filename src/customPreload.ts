@@ -2327,16 +2327,8 @@ window.addEventListener('DOMContentLoaded', () => {
       const fallback = heading.parentElement?.parentElement || heading.parentElement;
       return fallback && root.contains(fallback) ? fallback : root;
     }
-    const refresh = findRefreshButton(root);
-    const legacy = refresh?.parentElement?.parentElement?.parentElement;
-    if (
-      legacy &&
-      root.contains(legacy) &&
-      isSettingsContent(legacy) &&
-      /MCP|Model Context Protocol/i.test(legacy.textContent || '')
-    )
-      return legacy;
-    return null;
+    const legacy = findRefreshButton(root)?.parentElement?.parentElement?.parentElement;
+    return legacy && root.contains(legacy) && isSettingsContent(legacy) && /MCP|Model Context Protocol/i.test(legacy.textContent || '') ? legacy : null;
   }
   function injectCustomModelsSection(): void {
     const mount = findSettingsMount();
@@ -2350,26 +2342,21 @@ window.addEventListener('DOMContentLoaded', () => {
     section.setAttribute('aria-label', 'OpenCode Models');
     const header = element('div', 'agy-toolbar');
     header.append(element('h2', '', 'OpenCode Models'));
-    const actions = element('div', 'agy-actions');
-    OpenCodePicker.mount(actions, storageAPI, modelsChanged);
-    const search = field(section, 'Search models', 'agy-model-search', searchTerm, 'search');
-    search.placeholder = 'Search by name, model ID or provider';
-    search.addEventListener('input', () => {
-      searchTerm = search.value.trim().toLowerCase();
-      void renderCustomModelsList();
-    });
-    const content = element('div');
-    content.id = 'agy-custom-models-content';
-    const fleet = element('div', 'agy-fleet');
-    fleet.id = 'agy-google-account-pool-section';
-    fleet.setAttribute('aria-label', 'Google account fleet and quotas');
-    fleet.hidden = true;
     const status = statusNode();
     status.id = 'agy-main-status';
-    section.prepend(
-      header,
-      actions,
-    );
+    const actions = element('div', 'agy-actions');
+    const addBtn = button('Add model', () => openModelModal(), status, true);
+    addBtn.id = 'agy-add-model';
+    actions.append(addBtn, button('Diagnostics', () => openDiagnostics(), status), button('Discover local', () => discoverLocal(), status), button('Export', () => openImportExport('export'), status), button('Import', () => openImportExport('import'), status), button('Remote gateway', () => openGateway(), status));
+    header.append(actions);
+    const pickerWrap = element('div');
+    OpenCodePicker.mount(pickerWrap, storageAPI, modelsChanged);
+    const search = field(section, 'Search models', 'agy-model-search', searchTerm, 'search');
+    search.placeholder = 'Search by name, model ID or provider';
+    search.addEventListener('input', () => { searchTerm = search.value.trim().toLowerCase(); void renderCustomModelsList(); });
+    const content = element('div'); content.id = 'agy-custom-models-content';
+    const fleet = element('div', 'agy-fleet'); fleet.id = 'agy-google-account-pool-section'; fleet.setAttribute('aria-label', 'Google account fleet and quotas'); fleet.hidden = true;
+    section.prepend(header, pickerWrap);
     section.append(status, fleet, content);
     mount.append(section);
     void renderCustomModelsList();
