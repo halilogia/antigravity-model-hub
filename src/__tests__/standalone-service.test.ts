@@ -118,11 +118,11 @@ describe('owned Node proxy and management HTTP', () => {
       await vi.waitFor(() => expect(observed).toContain('/_addon/rpc'));
       expect(dom.window.location.hash).toBe('');
       expect(dom.window.sessionStorage.getItem('antigravity-addon-token')).toBe(token);
-      expect(dom.window.document.body.textContent).toContain('Add model');
-      const add = Array.from(dom.window.document.querySelectorAll('button')).find(button => button.textContent === 'Add model')!;
-      add.click();
-      await vi.waitFor(() => expect(dom.window.document.querySelector('#agy-modal-overlay')).not.toBeNull());
-      expect(dom.window.document.body.textContent).toContain('Provider');
+      expect(dom.window.document.body.textContent).toContain('Add selected models');
+      const fetchButton = Array.from(dom.window.document.querySelectorAll('button')).find(button => button.textContent === 'Fetch models')!;
+      expect(fetchButton).toBeDefined();
+      expect(dom.window.document.querySelector('#oc-model-picker')).not.toBeNull();
+      expect(dom.window.document.body.textContent).toContain('API provider');
     } finally {
       dom.window.dispatchEvent(new dom.window.Event('pagehide'));
       dom.window.close();
@@ -169,7 +169,7 @@ describe('owned Node proxy and management HTTP', () => {
       dom.window.dispatchEvent(new dom.window.Event('DOMContentLoaded'));
       expect(dom.window.location.hash).toBe('');
       await vi.waitFor(() => expect(dom.window.sessionStorage.getItem('antigravity-addon-token')).toBe(token));
-      await vi.waitFor(() => expect(dom.window.document.body.textContent).toContain('Add model'));
+      await vi.waitFor(() => expect(dom.window.document.body.textContent).toContain('Add selected models'));
       expect(observed.indexOf('/_addon/redeem')).toBe(0);
       expect(observed).toContain('/_addon/rpc');
     } finally {

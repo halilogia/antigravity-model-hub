@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 /** Included directly in the sandbox preload by scripts/build-opencode-preload.mjs. */
 namespace OpenCodePicker {
   interface Choice { id: string; displayName?: string; contextWindow?: number; maxOutputTokens?: number; supportsVision?: boolean; supportsThinking?: boolean }
