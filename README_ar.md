@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml"><img src="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml/badge.svg?branch=main" alt="التكامل المستمر CI"></a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/actions"><img src="https://img.shields.io/badge/status-active-success" alt="التكامل المستمر CI"></a>
   <a href="#installation"><img src="https://img.shields.io/badge/Node.js-22.13%2B-339933?logo=nodedotjs&logoColor=white" alt="Node.js 22.13 أو أحدث"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-2563eb" alt="ترخيص Apache 2.0"></a>
 </p>
@@ -24,7 +24,7 @@
   <a href="#quick-links">روابط سريعة</a> ·
   <a href="#screenshots">لقطات الشاشة</a> ·
   <a href="#documentation">الوثائق</a> ·
-  <a href="https://github.com/vahapogut/antigravity-add-model/issues/new">الإبلاغ عن مشكلة</a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/issues/new">الإبلاغ عن مشكلة</a>
 </p>
 
 ---
@@ -45,7 +45,7 @@
 | [التثبيت](#installation) | [البوابة ولوحة التحكم على الويب](#optional-gateway-and-web-dashboard) | [تشخيص المشكلات والاستعادة](#updates-diagnostics-and-recovery) |
 | [إضافة أول نموذج](#add-your-first-model) | [الاتصال من حاسوب آخر](#connect-from-another-computer) | [إصدارات التطبيق وبُنى التثبيت المدعومة](docs/compatibility.md) |
 | [المزودون وكتالوجات النماذج](docs/providers.md) | [إعداد النماذج](docs/configuration.md) | [سجل التغييرات](CHANGELOG.md) |
-| [التطوير والمساهمة](#development-and-contributing) | [إعداد حسابات Google](docs/configuration.md#google-cloud-code-account-pools) | [تصفح المشكلات الحالية](https://github.com/vahapogut/antigravity-add-model/issues) |
+| [التطوير والمساهمة](#development-and-contributing) | [إعداد حسابات Google](docs/configuration.md#google-cloud-code-account-pools) | [تصفح المشكلات الحالية](https://github.com/halilogia/antigravity-model-hub/issues) |
 | [إعداد Antigravity IDE](docs/ide.md) | [مقارنة الميزات استنادًا إلى الشيفرة المصدرية](docs/feature-parity.md) | [حالة IDE والاستعادة](docs/ide.md#status-and-recovery) |
 | [معالج إعداد Cloudflare](docs/workers-ai-setup.md) | [سلاسل النماذج الاحتياطية](docs/providers.md#fallback-chains-for-rate-limited-providers) | [أمان الوكيل المحلي](docs/compatibility.md#local-proxy-trust-boundary) |
 
@@ -143,8 +143,8 @@
 <div dir="ltr">
 
 ```sh
-git clone https://github.com/vahapogut/antigravity-add-model.git
-cd antigravity-add-model
+git clone https://github.com/halilogia/antigravity-model-hub.git
+cd antigravity-model-hub
 npm ci --ignore-scripts
 npm run build
 ```
@@ -437,7 +437,7 @@ npm run test:integration
 
 تعمل اختبارات CI على Windows وmacOS وLinux باستخدام مزودين محليين للاختبار وحزم تثبيت معزولة. ولا تتحقق من بيانات اعتماد مزودين فعليين أو من كل إصدار مستقبلي لـ Antigravity.
 
-لإضافة مزود جديد، ابدأ من [كتالوج إعدادات سطح المكتب المسبقة](src/providers.ts)، و[سجل البروتوكولات](src/proxy/registry.ts)، و[كتالوج مزودي البوابة](gateway/src/provider-catalog.ts). ينبغي أن تتضمن التغييرات الاختبارات ذات الصلة ومخرجات سطح المكتب المعاد بناؤها. نرحب بطلبات السحب؛ [افتح مشكلة](https://github.com/vahapogut/antigravity-add-model/issues) للأخطاء التي يمكن إعادة إنتاجها، مع ذكر نوع التطبيق وإصداره ونظام التشغيل ونتائج التشخيص.
+لإضافة مزود جديد، ابدأ من [كتالوج إعدادات سطح المكتب المسبقة](src/providers.ts)، و[سجل البروتوكولات](src/proxy/registry.ts)، و[كتالوج مزودي البوابة](gateway/src/provider-catalog.ts). ينبغي أن تتضمن التغييرات الاختبارات ذات الصلة ومخرجات سطح المكتب المعاد بناؤها. نرحب بطلبات السحب؛ [افتح مشكلة](https://github.com/halilogia/antigravity-model-hub/issues) للأخطاء التي يمكن إعادة إنتاجها، مع ذكر نوع التطبيق وإصداره ونظام التشغيل ونتائج التشخيص.
 
 <a id="license-and-credits"></a>
 
@@ -447,7 +447,7 @@ npm run test:integration
 
 شعار Antigravity مأخوذ من [المواد الصحفية الرسمية لـ Google](https://antigravity.google/press).
 
-يتولى صيانة المشروع **[vahapogut](https://github.com/vahapogut)** · [LinkedIn](https://www.linkedin.com/in/abdulvahap-ogut-343992398/)
+يتولى صيانة المشروع **[Halil Emre (halilogia)](https://github.com/halilogia)** (Upstream: **[vahapogut](https://github.com/vahapogut)**) · [LinkedIn](https://www.linkedin.com/in/abdulvahap-ogut-343992398/)
 
 <p align="center"><a href="#quick-links">↑ العودة إلى الروابط السريعة</a></p>
 

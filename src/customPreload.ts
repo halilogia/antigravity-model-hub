@@ -1,3 +1,4 @@
+// Modified from vahapogut/antigravity-add-model@e77954b — see NOTICE.
 /** Custom-model UI, appended to the vendor preload. Sandboxed preloads require Electron only. */
 import { ipcRenderer } from 'electron';
 

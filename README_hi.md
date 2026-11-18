@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml"><img src="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/actions"><img src="https://img.shields.io/badge/status-active-success" alt="CI"></a>
   <a href="#installation"><img src="https://img.shields.io/badge/Node.js-22.13%2B-339933?logo=nodedotjs&logoColor=white" alt="Node.js 22.13 या नया संस्करण"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-2563eb" alt="Apache License 2.0"></a>
 </p>
@@ -22,7 +22,7 @@
   <a href="#quick-links">ज़रूरी लिंक</a> ·
   <a href="#screenshots">स्क्रीनशॉट</a> ·
   <a href="#documentation">दस्तावेज़</a> ·
-  <a href="https://github.com/vahapogut/antigravity-add-model/issues/new">समस्या की सूचना दें</a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/issues/new">समस्या की सूचना दें</a>
 </p>
 
 ---
@@ -43,7 +43,7 @@ Antigravity के अंतर्निहित मॉडलों के स�
 | [इंस्टॉलेशन](#installation) | [गेटवे और वेब डैशबोर्ड](#optional-gateway-and-web-dashboard) | [समस्या निवारण और रिकवरी](#updates-diagnostics-and-recovery) |
 | [अपना पहला मॉडल जोड़ें](#add-your-first-model) | [दूसरे कंप्यूटर से कनेक्ट करें](#connect-from-another-computer) | [समर्थित ऐप संस्करण और संरचनाएँ](docs/compatibility.md) |
 | [प्रदाता और मॉडल कैटलॉग](docs/providers.md) | [मॉडल कॉन्फ़िगरेशन](docs/configuration.md) | [बदलावों का विवरण](CHANGELOG.md) |
-| [विकास और योगदान](#development-and-contributing) | [Google खाता सेटअप](docs/configuration.md#google-cloud-code-account-pools) | [मौजूदा समस्याएँ देखें](https://github.com/vahapogut/antigravity-add-model/issues) |
+| [विकास और योगदान](#development-and-contributing) | [Google खाता सेटअप](docs/configuration.md#google-cloud-code-account-pools) | [मौजूदा समस्याएँ देखें](https://github.com/halilogia/antigravity-model-hub/issues) |
 | [Antigravity IDE सेटअप](docs/ide.md) | [स्रोत कोड पर आधारित सुविधाओं की तुलना](docs/feature-parity.md) | [IDE की स्थिति और पुनर्स्थापना](docs/ide.md#status-and-recovery) |
 | [Cloudflare सेटअप विज़ार्ड](docs/workers-ai-setup.md) | [फ़ॉलबैक शृंखलाएँ](docs/providers.md#fallback-chains-for-rate-limited-providers) | [स्थानीय प्रॉक्सी की सुरक्षा](docs/compatibility.md#local-proxy-trust-boundary) |
 
@@ -139,8 +139,8 @@ Antigravity के अंतर्निहित मॉडलों के स�
 आपको **अलग Antigravity डेस्कटॉप ऐप**, Git और **Node.js 22.13 या नया संस्करण** चाहिए। Node का यह संस्करण डेस्कटॉप ऐड-ऑन और वैकल्पिक गेटवे दोनों के लिए उपयुक्त है।
 
 ```sh
-git clone https://github.com/vahapogut/antigravity-add-model.git
-cd antigravity-add-model
+git clone https://github.com/halilogia/antigravity-model-hub.git
+cd antigravity-model-hub
 npm ci --ignore-scripts
 npm run build
 ```
@@ -391,7 +391,7 @@ npm run test:integration
 
 CI स्थानीय प्रदाता फ़िक्स्चर और अलग किए गए इंस्टॉलेशन पैकेज के साथ Windows, macOS और Linux पर चलता है। यह वास्तविक प्रदाता की गुप्त जानकारी या Antigravity के भविष्य के हर संस्करण का सत्यापन नहीं करता।
 
-नए प्रदाता के लिए [डेस्कटॉप प्रीसेट कैटलॉग](src/providers.ts), [प्रोटोकॉल रजिस्ट्री](src/proxy/registry.ts) और [गेटवे प्रदाता कैटलॉग](gateway/src/provider-catalog.ts) से शुरू करें। बदलावों में प्रासंगिक परीक्षण और दोबारा बनाया गया डेस्कटॉप आउटपुट शामिल होना चाहिए। पुल रिक्वेस्ट का स्वागत है; दोहराई जा सकने वाली समस्याओं के लिए अपने ऐप के प्रकार/संस्करण, OS और डायग्नोस्टिक्स के साथ [इश्यू खोलें](https://github.com/vahapogut/antigravity-add-model/issues)।
+नए प्रदाता के लिए [डेस्कटॉप प्रीसेट कैटलॉग](src/providers.ts), [प्रोटोकॉल रजिस्ट्री](src/proxy/registry.ts) और [गेटवे प्रदाता कैटलॉग](gateway/src/provider-catalog.ts) से शुरू करें। बदलावों में प्रासंगिक परीक्षण और दोबारा बनाया गया डेस्कटॉप आउटपुट शामिल होना चाहिए। पुल रिक्वेस्ट का स्वागत है; दोहराई जा सकने वाली समस्याओं के लिए अपने ऐप के प्रकार/संस्करण, OS और डायग्नोस्टिक्स के साथ [इश्यू खोलें](https://github.com/halilogia/antigravity-model-hub/issues)।
 
 <a id="license-and-credits"></a>
 
@@ -401,6 +401,6 @@ CI स्थानीय प्रदाता फ़िक्स्चर औ�
 
 Antigravity का लोगो [Google की आधिकारिक प्रेस सामग्री](https://antigravity.google/press) से लिया गया है।
 
-रखरखाव: **[vahapogut](https://github.com/vahapogut)** · [LinkedIn](https://www.linkedin.com/in/abdulvahap-ogut-343992398/)
+रखरखाव: **[Halil Emre (halilogia)](https://github.com/halilogia)** (Upstream: **[vahapogut](https://github.com/vahapogut)**) · [LinkedIn](https://www.linkedin.com/in/abdulvahap-ogut-343992398/)
 
 <p align="center"><a href="#quick-links">↑ ज़रूरी लिंक पर वापस जाएँ</a></p>

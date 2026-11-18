@@ -1,3 +1,4 @@
+// Modified from vahapogut/antigravity-add-model@e77954b — see NOTICE.
 /* eslint-disable @typescript-eslint/no-namespace */
 /** Included directly in the sandbox preload by scripts/build-opencode-preload.mjs. */
 namespace OpenCodePicker {

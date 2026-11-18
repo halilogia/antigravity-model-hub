@@ -264,7 +264,6 @@ describe('vendor runtime adapter', () => {
         "args.push('--api_server_url', 'https://later.example'); resolve({ args, wsl });",
       ),
     ],
-    ['spread args', 'dist/languageServer.js', vendorServer.replace("'--standalone'", '...otherArgs')],
     [
       'nonliteral endpoint',
       'dist/languageServer.js',
@@ -273,6 +272,12 @@ describe('vendor runtime adapter', () => {
     ['invalid JavaScript', 'dist/preload.js', 'const = ;'],
   ])('fails closed on %s', (_label, name, source) => {
     expect(() => fixture({ [name]: source }).plan()).toThrow('UNSUPPORTED_RUNTIME');
+  });
+
+  it('supports Antigravity 2.32+ spread arguments layout', () => {
+    const spreadServer = vendorServer.replace("'--standalone'", '...baseLsArgs()');
+    const planned = fixture({ 'dist/languageServer.js': spreadServer }).plan();
+    expect(planned.get('dist/languageServer.js')?.toString()).toContain("args.push('--api_server_url'");
   });
 
   it('rejects repeated patching instead of appending another extension', () => {

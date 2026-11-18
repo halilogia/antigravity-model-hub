@@ -112,6 +112,20 @@ function createFixture(customOnly = false) {
     './customScheme': { extensionAuthorities: new Map() },
     './tray': {},
     './ideInstall/constants': { getIdeInstallPath: () => idePath },
+    './features/opencode-connection/index': {
+      createOpenCodeConnections: () => ({
+        status: () => ({ success: true, saved: {} }),
+        save: () => ({ success: true }),
+        resolve: (input: unknown) => input,
+      }),
+    },
+    './features/opencode-connection': {
+      createOpenCodeConnections: () => ({
+        status: () => ({ success: true, saved: {} }),
+        save: () => ({ success: true }),
+        resolve: (input: unknown) => input,
+      }),
+    },
   };
   const updater = loadModule('updater', dependencies);
   const customIpc = loadModule('customIpc', dependencies);
@@ -251,6 +265,8 @@ describe('standalone custom model addon', () => {
   it('registers only addon storage channels and exposes no replacement renderer APIs', () => {
     const fixture = createFixture(true);
     expect([...fixture.handlers.keys()]).toEqual([
+      'opencode:connection-status',
+      'opencode:save-connection',
       'storage:get-custom-models',
       'storage:save-custom-model',
       'storage:delete-custom-model',
@@ -293,7 +309,7 @@ describe('standalone custom model addon', () => {
       externalModelName: 'provider-model',
     };
     await expect(fixture.invoke('storage:save-custom-model', { ...model })).resolves.toEqual({ success: true });
-    const filename = path.join(fixture.homePath, '.gemini', 'antigravity', 'custom_models.json');
+    const filename = path.join(fixture.homePath, '.gemini', 'antigravity', 'opencode-model-bridge', 'custom_models.json');
     const persisted = JSON.parse(readFileSync(filename, 'utf8'));
     expect(persisted.models).toEqual([{ ...model, apiKey: 'encrypted:secret-long-api-key', encrypted: true }]);
 

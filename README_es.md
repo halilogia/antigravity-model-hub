@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml"><img src="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/actions"><img src="https://img.shields.io/badge/status-active-success" alt="CI"></a>
   <a href="#instalación"><img src="https://img.shields.io/badge/Node.js-22.13%2B-339933?logo=nodedotjs&logoColor=white" alt="Node.js 22.13 o posterior"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-2563eb" alt="Licencia Apache 2.0"></a>
 </p>
@@ -22,7 +22,7 @@
   <a href="#añadir-modelos">Añadir modelos</a> ·
   <a href="#pasarela-y-acceso-remoto">Acceso remoto</a> ·
   <a href="#documentación-y-contribuciones">Documentación</a> ·
-  <a href="https://github.com/vahapogut/antigravity-add-model/issues">Ayuda</a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/issues">Ayuda</a>
 </p>
 
 Añade API externas y modelos locales junto a los modelos integrados de Antigravity. Configúralos en el administrador de modelos y selecciónalos al conversar. La pasarela opcional añade enrutamiento centralizado, historial y un panel web.
@@ -65,8 +65,8 @@ Los catálogos de proveedores como OpenRouter pueden ofrecer cientos de modelos.
 Necesitas Git, **Node.js 22.13 o posterior** y la aplicación de Antigravity que quieras configurar.
 
 ```sh
-git clone https://github.com/vahapogut/antigravity-add-model.git
-cd antigravity-add-model
+git clone https://github.com/halilogia/antigravity-model-hub.git
+cd antigravity-model-hub
 npm ci --ignore-scripts
 npm run build
 ```
@@ -208,7 +208,7 @@ npm run gateway:test
 npm run test:integration
 ```
 
-Las pruebas de CI usan proveedores locales simulados e instalaciones aisladas en Windows, macOS y Linux. No validan todas las credenciales reales ni todas las versiones de Antigravity. Las contribuciones deben incluir pruebas relevantes y la compilación actualizada. Para informar de un fallo, [abre una incidencia](https://github.com/vahapogut/antigravity-add-model/issues) con el tipo y versión de aplicación, sistema operativo y diagnóstico sin secretos.
+Las pruebas de CI usan proveedores locales simulados e instalaciones aisladas en Windows, macOS y Linux. No validan todas las credenciales reales ni todas las versiones de Antigravity. Las contribuciones deben incluir pruebas relevantes y la compilación actualizada. Para informar de un fallo, [abre una incidencia](https://github.com/halilogia/antigravity-model-hub/issues) con el tipo y versión de aplicación, sistema operativo y diagnóstico sin secretos.
 
 ## Licencia y créditos
 
@@ -216,4 +216,4 @@ Las pruebas de CI usan proveedores locales simulados e instalaciones aisladas en
 
 El logotipo de Antigravity procede de los [recursos de prensa oficiales de Google](https://antigravity.google/press).
 
-Mantenido por **[vahapogut](https://github.com/vahapogut)** · [LinkedIn](https://www.linkedin.com/in/abdulvahap-ogut-343992398/)
+Mantenido por **[Halil Emre (halilogia)](https://github.com/halilogia)** (Upstream: **[vahapogut](https://github.com/vahapogut)**) · [LinkedIn](https://www.linkedin.com/in/abdulvahap-ogut-343992398/)

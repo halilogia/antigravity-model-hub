@@ -1,3 +1,4 @@
+// Modified from vahapogut/antigravity-add-model@e77954b — see NOTICE.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

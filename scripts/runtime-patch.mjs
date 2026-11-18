@@ -1,3 +1,4 @@
+// Modified from vahapogut/antigravity-add-model@e77954b — see NOTICE.
 // Build a narrowly scoped patch without evaluating any vendor or build code.
 import { Script } from 'node:vm';
 import ts from 'typescript';

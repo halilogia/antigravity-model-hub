@@ -1,4 +1,7 @@
-> **Unofficial derivative** of [vahapogut/antigravity-add-model](https://github.com/vahapogut/antigravity-add-model) (Apache-2.0). Not affiliated with or endorsed by Google (Antigravity), OpenCode or the upstream author. See [NOTICE](NOTICE) and [LICENSE](LICENSE).
+> **Resmi olmayan türev proje.** Bu proje, [vahapogut/antigravity-add-model](https://github.com/vahapogut/antigravity-add-model) projesinin (`e77954b` commit'i temel alınarak) OpenCode Go/Zen model seçici ve Antigravity 2.32+ desteği eklenmiş değiştirilmiş bir forkudur (Apache-2.0). Değişiklik listesi için [NOTICE](NOTICE) ve [LICENSE](LICENSE) dosyalarına bakın. Google (Antigravity), OpenCode veya orijinal geliştirici ile resmi bir bağı yoktur.
+>
+> [!WARNING]
+> **Kullanım Şartları ve Sorumluluk:** Bu proje yerel kurulu bir uygulamayı yalnızca kişisel ve yerel değerlendirme amacıyla yamalar. Google hizmetlerine üçüncü taraf araçlarla erişmek Hizmet Şartlarını (§6) ihlal edebilir ve hesap askıya alma riski taşır. Google OAuth jetonlarını harici adreslere yönlendirmeyin. Tüm sorumluluk kullanıcıya aittir.
 
 <h1 align="center">Antigravity Custom Model Enabler</h1>
 
@@ -8,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml"><img src="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/actions"><img src="https://img.shields.io/badge/durum-aktif-success" alt="Durum"></a>
   <a href="#installation"><img src="https://img.shields.io/badge/Node.js-22.13%2B-339933?logo=nodedotjs&logoColor=white" alt="Node.js 22.13 veya üzeri"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-2563eb" alt="Apache Lisansı 2.0"></a>
 </p>
@@ -22,7 +25,7 @@
   <a href="#quick-links">Hızlı bağlantılar</a> ·
   <a href="#screenshots">Ekran görüntüleri</a> ·
   <a href="#documentation">Dokümantasyon</a> ·
-  <a href="https://github.com/vahapogut/antigravity-add-model/issues/new">Sorun bildir</a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/issues/new">Sorun bildir</a>
 </p>
 
 ---
@@ -43,7 +46,7 @@ Bu belge Türkçedir. Bağlantı verilen ayrıntılı teknik rehberler İngilizc
 | [Kurulum](#installation) | [Ağ geçidi ve web paneli](#optional-gateway-and-web-dashboard) | [Sorun giderme ve kurtarma](#updates-diagnostics-and-recovery) |
 | [İlk modelini ekle](#add-your-first-model) | [Başka bir bilgisayardan bağlan](#connect-from-another-computer) | [Desteklenen sürümler ve kurulum yapıları](docs/compatibility.md) |
 | [Sağlayıcılar ve model katalogları](docs/providers.md) | [Model yapılandırması](docs/configuration.md) | [Değişiklik günlüğü](CHANGELOG.md) |
-| [Geliştirme ve katkı](#development-and-contributing) | [Google hesap kurulumu](docs/configuration.md#google-cloud-code-account-pools) | [Açılmış sorunlar](https://github.com/vahapogut/antigravity-add-model/issues) |
+| [Geliştirme ve katkı](#development-and-contributing) | [Google hesap kurulumu](docs/configuration.md#google-cloud-code-account-pools) | [Açılmış sorunlar](https://github.com/halilogia/antigravity-model-hub/issues) |
 | [Antigravity IDE kurulumu](docs/ide.md) | [Kaynak koda dayalı özellik karşılaştırması](docs/feature-parity.md) | [IDE durumu ve geri yükleme](docs/ide.md#status-and-recovery) |
 | [Cloudflare kurulum sihirbazı](docs/workers-ai-setup.md) | [Yedek model zincirleri](docs/providers.md#fallback-chains-for-rate-limited-providers) | [Yerel proxy güvenliği](docs/compatibility.md#local-proxy-trust-boundary) |
 
@@ -139,11 +142,14 @@ Ağ geçidi bağlantısını kaydet, model takma adlarını içe aktar ve yönet
 **Bağımsız Antigravity masaüstü uygulaması**, Git ve **Node.js 22.13 veya üzeri** gerekir. Bu Node sürümü hem masaüstü eklentisini hem isteğe bağlı ağ geçidini destekler.
 
 ```sh
-git clone https://github.com/vahapogut/antigravity-add-model.git
-cd antigravity-add-model
+git clone https://github.com/halilogia/antigravity-model-hub.git
+cd antigravity-model-hub
 npm ci --ignore-scripts
 npm run build
 ```
+
+> [!NOTE]
+> `dist/` klasörü git takibinde değildir. `node scripts/deploy.mjs` veya `KUR.cmd` ile kurulum yapmadan önce `npm run build` çalıştırmak zorunludur.
 
 Depo zaten bilgisayarında mı? Yerel kopyanı güncelle, ardından bağımlılık yükleme ve derleme komutlarını yeniden çalıştır.
 
@@ -389,7 +395,7 @@ npm run test:integration
 
 CI; yerel test sağlayıcıları ve ayrı kurulum paketleri kullanarak Windows, macOS ve Linux üzerinde çalışır. Gerçek sağlayıcı kimlik bilgilerini veya gelecekteki tüm Antigravity sürümlerini doğrulamaz.
 
-Yeni bir sağlayıcı eklemek için [masaüstü sağlayıcı kataloğundan](src/providers.ts), [protokol kaydından](src/proxy/registry.ts) ve [ağ geçidi sağlayıcı kataloğundan](gateway/src/provider-catalog.ts) başla. Değişiklikler ilgili testleri ve yeniden derlenmiş masaüstü çıktısını içermelidir. Pull request gönderebilirsin; tekrarlanabilir hatalar için uygulama türünü/sürümünü, işletim sistemini ve tanılama bilgilerini ekleyerek [issue aç](https://github.com/vahapogut/antigravity-add-model/issues).
+Yeni bir sağlayıcı eklemek için [masaüstü sağlayıcı kataloğundan](src/providers.ts), [protokol kaydından](src/proxy/registry.ts) ve [ağ geçidi sağlayıcı kataloğundan](gateway/src/provider-catalog.ts) başla. Değişiklikler ilgili testleri ve yeniden derlenmiş masaüstü çıktısını içermelidir. Pull request gönderebilirsin; tekrarlanabilir hatalar için uygulama türünü/sürümünü, işletim sistemini ve tanılama bilgilerini ekleyerek [issue aç](https://github.com/halilogia/antigravity-model-hub/issues).
 
 <a id="license-and-credits"></a>
 
@@ -397,8 +403,8 @@ Yeni bir sağlayıcı eklemek için [masaüstü sağlayıcı kataloğundan](src/
 
 [Apache Lisansı 2.0](LICENSE). Uyarlanan ağ geçidi bileşenlerinin [MIT lisansı](gateway/LICENSE.upstream) ve [kaynak atıfları](gateway/UPSTREAM.md) korunur.
 
-Antigravity logosu [Google'ın resmi basın materyallerinden](https://antigravity.google/press) alınmıştır.
+Tüm ticari markalar, ürün adları ve logolar ilgili sahiplerinin mülkiyetindedir. Resmi Google ticari markaları ve logoları bu türev projeden kaldırılmıştır.
 
-Bakımını yapan: **[vahapogut](https://github.com/vahapogut)** · [LinkedIn](https://www.linkedin.com/in/abdulvahap-ogut-343992398/)
+Fork bakımını yapan: **[Halil Emre (halilogia)](https://github.com/halilogia)** · Orijinal proje: **[vahapogut](https://github.com/vahapogut)**
 
 <p align="center"><a href="#quick-links">↑ Hızlı bağlantılara dön</a></p>

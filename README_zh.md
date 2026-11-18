@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml"><img src="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/actions"><img src="https://img.shields.io/badge/status-active-success" alt="CI"></a>
   <a href="#安装指南"><img src="https://img.shields.io/badge/Node.js-22.13%2B-339933?logo=nodedotjs&logoColor=white" alt="Node.js 22.13 or newer"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-2563eb" alt="Apache License 2.0"></a>
 </p>
@@ -22,7 +22,7 @@
   <a href="#快速链接">快速链接</a> ·
   <a href="#界面截图">界面截图</a> ·
   <a href="#文档指南">文档指南</a> ·
-  <a href="https://github.com/vahapogut/antigravity-add-model/issues/new">提交问题 (Issue)</a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/issues/new">提交问题 (Issue)</a>
 </p>
 
 ---
@@ -39,7 +39,7 @@
 | [安装指南](#安装指南) | [可选网关与 Web 控制台](#可选网关与-web-控制台) | [故障排查与恢复](#更新诊断与恢复) |
 | [添加你的第一个模型](#添加你的第一个模型) | [从另一台设备连接](#从另一台设备连接) | [受支持的应用版本与目录结构](docs/compatibility.md) |
 | [服务商与模型目录](docs/providers.md) | [模型详细配置](docs/configuration.md) | [更新日志 (Changelog)](CHANGELOG.md) |
-| [开发与贡献](#开发与贡献) | [Google 账号池设置](docs/configuration.md#google-cloud-code-account-pools) | [浏览现有 Issue](https://github.com/vahapogut/antigravity-add-model/issues) |
+| [开发与贡献](#开发与贡献) | [Google 账号池设置](docs/configuration.md#google-cloud-code-account-pools) | [浏览现有 Issue](https://github.com/halilogia/antigravity-model-hub/issues) |
 | [Antigravity IDE 配置指南](docs/ide.md) | [基于源码的功能特性对比](docs/feature-parity.md) | [IDE 状态检查与还原](docs/ide.md#status-and-recovery) |
 
 ## 核心功能
@@ -118,8 +118,8 @@
 你需要安装**独立的 Antigravity 桌面端应用**、Git 以及 **Node.js 22.13 或更高版本**。该 Node 版本同时支持桌面端插件和可选网关。
 
 ```sh
-git clone https://github.com/vahapogut/antigravity-add-model.git
-cd antigravity-add-model
+git clone https://github.com/halilogia/antigravity-model-hub.git
+cd antigravity-model-hub
 npm ci --ignore-scripts
 npm run build
 ```
@@ -345,7 +345,7 @@ npm run test:integration
 
 CI 自动化测试基于本地模拟服务商数据（Fixtures）和隔离安装包在 Windows、macOS 和 Linux 三大平台上运行。CI 不会验证真实服务商的在线凭据，也无法预验证未来发布的每一个 Antigravity 新版本。
 
-如需新增服务商预设，请从[桌面端服务商预设目录](src/providers.ts)、[协议注册表](src/proxy/registry.ts)以及[网关服务商目录](gateway/src/provider-catalog.ts)入手。提交更改时请附带相应的单元测试并重新构建桌面端产物（`dist/`）。非常欢迎提交 Pull Request；如遇可复现的 Bug，请附带你的应用类型/版本号、操作系统及诊断信息[提交 Issue](https://github.com/vahapogut/antigravity-add-model/issues)。
+如需新增服务商预设，请从[桌面端服务商预设目录](src/providers.ts)、[协议注册表](src/proxy/registry.ts)以及[网关服务商目录](gateway/src/provider-catalog.ts)入手。提交更改时请附带相应的单元测试并重新构建桌面端产物（`dist/`）。非常欢迎提交 Pull Request；如遇可复现的 Bug，请附带你的应用类型/版本号、操作系统及诊断信息[提交 Issue](https://github.com/halilogia/antigravity-model-hub/issues)。
 
 ## 开源许可与致谢
 
@@ -353,6 +353,6 @@ CI 自动化测试基于本地模拟服务商数据（Fixtures）和隔离安装
 
 Antigravity 徽标来自 [Google 官方媒体资源库](https://antigravity.google/press)。
 
-由 **[vahapogut](https://github.com/vahapogut)** 维护 · [LinkedIn](https://www.linkedin.com/in/abdulvahap-ogut-343992398/)
+由 **[Halil Emre (halilogia)](https://github.com/halilogia)** (Upstream: **[vahapogut](https://github.com/vahapogut)**) 维护 · [LinkedIn](https://www.linkedin.com/in/abdulvahap-ogut-343992398/)
 
 <p align="center"><a href="#快速链接">↑ 返回快速链接</a></p>

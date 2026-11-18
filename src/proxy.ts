@@ -1,3 +1,4 @@
+// Modified from vahapogut/antigravity-add-model@e77954b — see NOTICE.
 /**
  * Antigravity Local Proxy Server.
  * Routes requests to Google, OpenAI, Anthropic, Ollama, and custom provider endpoints.
@@ -1529,7 +1530,8 @@ function handleRequest(req: http.IncomingMessage, res: http.ServerResponse): voi
             : undefined,
         );
         return;
-      } catch (e) {
+      } catch (e: any) {
+        if (process.env.TEST_DEBUG) console.error('[TEST-DEBUG]', e?.message, e?.stack);
         log.error('[Proxy] JSON parse error in request body:', e);
         res.writeHead(e instanceof SubagentRoutingError ? e.status : 400, { 'Content-Type': 'application/json' });
         res.end(

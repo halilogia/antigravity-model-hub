@@ -1,4 +1,7 @@
-> **Unofficial derivative.** This is a modified fork of [vahapogut/antigravity-add-model](https://github.com/vahapogut/antigravity-add-model) (Apache-2.0, based on commit `e77954b`), extended with an OpenCode Go/Zen model picker. See [NOTICE](NOTICE) for the list of changes and [LICENSE](LICENSE). Not affiliated with or endorsed by Google (Antigravity), OpenCode or the upstream author. It patches a locally installed app for personal use; check the terms of service of the apps and providers you use before distributing or using it.
+> **Unofficial derivative.** This is a modified fork of [vahapogut/antigravity-add-model](https://github.com/vahapogut/antigravity-add-model) (Apache-2.0, based on commit `e77954b`), extended with an OpenCode Go/Zen model picker and Antigravity 2.32+ runtime support. See [NOTICE](NOTICE) for the list of changes and [LICENSE](LICENSE). Not affiliated with or endorsed by Google (Antigravity), OpenCode or the upstream author.
+>
+> [!WARNING]
+> **Terms of Service & Responsibility:** This project patches a locally installed app for personal, local evaluation only. Using third-party tools to access Google services may violate Terms of Service (§6) and carries account suspension risk. Do not redirect Google OAuth tokens to external endpoints. All responsibility rests with the user.
 
 <h1 align="center">Antigravity Custom Model Enabler</h1>
 
@@ -8,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml"><img src="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/actions"><img src="https://img.shields.io/badge/status-active-success" alt="Status"></a>
   <a href="#installation"><img src="https://img.shields.io/badge/Node.js-22.13%2B-339933?logo=nodedotjs&logoColor=white" alt="Node.js 22.13 or newer"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-2563eb" alt="Apache License 2.0"></a>
 </p>
@@ -22,7 +25,7 @@
   <a href="#quick-links">Quick links</a> ·
   <a href="#screenshots">Screenshots</a> ·
   <a href="#documentation">Documentation</a> ·
-  <a href="https://github.com/vahapogut/antigravity-add-model/issues/new">Report an issue</a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/issues/new">Report an issue</a>
 </p>
 
 ---
@@ -39,7 +42,7 @@ Add external API providers and local models alongside Antigravity's built-in mod
 | [Installation](#installation) | [Gateway and web dashboard](#optional-gateway-and-web-dashboard) | [Troubleshooting and recovery](#updates-diagnostics-and-recovery) |
 | [Add your first model](#add-your-first-model) | [Connect from another computer](#connect-from-another-computer) | [Supported app versions and layouts](docs/compatibility.md) |
 | [Providers and model catalogs](docs/providers.md) | [Model configuration](docs/configuration.md) | [Changelog](CHANGELOG.md) |
-| [Development and contributing](#development-and-contributing) | [Google account setup](docs/configuration.md#google-cloud-code-account-pools) | [Browse existing issues](https://github.com/vahapogut/antigravity-add-model/issues) |
+| [Development and contributing](#development-and-contributing) | [Google account setup](docs/configuration.md#google-cloud-code-account-pools) | [Browse existing issues](https://github.com/halilogia/antigravity-model-hub/issues) |
 | [Antigravity IDE setup](docs/ide.md) | [Source-based feature comparison](docs/feature-parity.md) | [IDE status and restore](docs/ide.md#status-and-recovery) |
 | [Cloudflare setup wizard](docs/workers-ai-setup.md) | [Fallback chains](docs/providers.md#fallback-chains-for-rate-limited-providers) | [Local proxy security](docs/compatibility.md#local-proxy-trust-boundary) |
 
@@ -118,11 +121,14 @@ Map model aliases to providers and configure fallback models and context limits 
 You need the **standalone Antigravity desktop app**, Git, and **Node.js 22.13 or newer**. This Node version covers both the desktop addon and the optional gateway.
 
 ```sh
-git clone https://github.com/vahapogut/antigravity-add-model.git
-cd antigravity-add-model
+git clone https://github.com/halilogia/antigravity-model-hub.git
+cd antigravity-model-hub
 npm ci --ignore-scripts
 npm run build
 ```
+
+> [!NOTE]
+> `dist/` is not tracked in version control. Running `npm run build` is required before deploying with `node scripts/deploy.mjs` or `KUR.cmd`.
 
 Already have the repository? Update your checkout, then run the dependency and build commands again.
 
@@ -364,14 +370,14 @@ npm run test:integration
 
 CI runs on Windows, macOS, and Linux using local provider fixtures and isolated installation packages. It does not validate live provider credentials or every future Antigravity release.
 
-For a new provider, start with [the desktop preset catalog](src/providers.ts), [protocol registry](src/proxy/registry.ts), and [gateway provider catalog](gateway/src/provider-catalog.ts). Changes should include relevant tests and rebuilt desktop output. Pull requests are welcome; [open an issue](https://github.com/vahapogut/antigravity-add-model/issues) for reproducible bugs, with your app type/version, OS, and diagnostics.
+For a new provider, start with [the desktop preset catalog](src/providers.ts), [protocol registry](src/proxy/registry.ts), and [gateway provider catalog](gateway/src/provider-catalog.ts). Changes should include relevant tests and rebuilt desktop output. Pull requests are welcome; [open an issue](https://github.com/halilogia/antigravity-model-hub/issues) for reproducible bugs, with your app type/version, OS, and diagnostics.
 
 ## License and credits
 
 [Apache License 2.0](LICENSE). Adapted gateway components retain their [MIT license](gateway/LICENSE.upstream) and [upstream attribution](gateway/UPSTREAM.md).
 
-Antigravity logo from [Google's official press assets](https://antigravity.google/press).
+All trademarks, product names and logos are the property of their respective owners. Official Google trademarks and logos have been removed from this derivative.
 
-Maintained by **[vahapogut](https://github.com/vahapogut)** · [LinkedIn](https://www.linkedin.com/in/abdulvahap-ogut-343992398/)
+Fork maintained by **[Halil Emre (halilogia)](https://github.com/halilogia)** · Upstream project by **[vahapogut](https://github.com/vahapogut)**
 
 <p align="center"><a href="#quick-links">↑ Back to quick links</a></p>

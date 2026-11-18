@@ -1,3 +1,4 @@
+// Modified from vahapogut/antigravity-add-model@e77954b — see NOTICE.
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { writeJsonAtomic, type SecretCodec } from '../../modelStore';

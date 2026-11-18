@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml"><img src="https://github.com/vahapogut/antigravity-add-model/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/actions"><img src="https://img.shields.io/badge/status-active-success" alt="CI"></a>
   <a href="#installation"><img src="https://img.shields.io/badge/Node.js-22.13%2B-339933?logo=nodedotjs&logoColor=white" alt="Node.js 22.13 или новее"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-2563eb" alt="Лицензия Apache 2.0"></a>
 </p>
@@ -22,7 +22,7 @@
   <a href="#quick-links">Быстрые ссылки</a> ·
   <a href="#screenshots">Скриншоты</a> ·
   <a href="#documentation">Документация</a> ·
-  <a href="https://github.com/vahapogut/antigravity-add-model/issues/new">Сообщить о проблеме</a>
+  <a href="https://github.com/halilogia/antigravity-model-hub/issues/new">Сообщить о проблеме</a>
 </p>
 
 ---
@@ -43,7 +43,7 @@
 | [Установка](#installation) | [Шлюз и веб-панель](#optional-gateway-and-web-dashboard) | [Диагностика и восстановление](#updates-diagnostics-and-recovery) |
 | [Добавление первой модели](#add-your-first-model) | [Подключение с другого компьютера](#connect-from-another-computer) | [Поддерживаемые версии и структура приложения](docs/compatibility.md) |
 | [Провайдеры и каталоги моделей](docs/providers.md) | [Настройка моделей](docs/configuration.md) | [История изменений](CHANGELOG.md) |
-| [Разработка и участие в проекте](#development-and-contributing) | [Настройка аккаунтов Google](docs/configuration.md#google-cloud-code-account-pools) | [Существующие обращения](https://github.com/vahapogut/antigravity-add-model/issues) |
+| [Разработка и участие в проекте](#development-and-contributing) | [Настройка аккаунтов Google](docs/configuration.md#google-cloud-code-account-pools) | [Существующие обращения](https://github.com/halilogia/antigravity-model-hub/issues) |
 | [Настройка Antigravity IDE](docs/ide.md) | [Сравнение возможностей по исходному коду](docs/feature-parity.md) | [Состояние IDE и восстановление](docs/ide.md#status-and-recovery) |
 | [Мастер настройки Cloudflare](docs/workers-ai-setup.md) | [Цепочки резервных моделей](docs/providers.md#fallback-chains-for-rate-limited-providers) | [Безопасность локального прокси](docs/compatibility.md#local-proxy-trust-boundary) |
 
@@ -139,8 +139,8 @@
 Вам понадобятся **отдельное настольное приложение Antigravity**, Git и **Node.js 22.13 или новее**. Эта версия Node подходит и для настольного дополнения, и для необязательного шлюза.
 
 ```sh
-git clone https://github.com/vahapogut/antigravity-add-model.git
-cd antigravity-add-model
+git clone https://github.com/halilogia/antigravity-model-hub.git
+cd antigravity-model-hub
 npm ci --ignore-scripts
 npm run build
 ```
@@ -391,7 +391,7 @@ npm run test:integration
 
 CI выполняется в Windows, macOS и Linux с локальными тестовыми провайдерами и изолированными установочными пакетами. Он не проверяет реальные учётные данные провайдеров и каждую будущую версию Antigravity.
 
-При добавлении нового провайдера начните с [каталога предустановок настольного приложения](src/providers.ts), [реестра протоколов](src/proxy/registry.ts) и [каталога провайдеров шлюза](gateway/src/provider-catalog.ts). Изменения должны включать соответствующие тесты и пересобранные файлы настольного дополнения. Pull request приветствуются; для воспроизводимых ошибок [откройте issue](https://github.com/vahapogut/antigravity-add-model/issues), указав тип и версию приложения, ОС и диагностические данные.
+При добавлении нового провайдера начните с [каталога предустановок настольного приложения](src/providers.ts), [реестра протоколов](src/proxy/registry.ts) и [каталога провайдеров шлюза](gateway/src/provider-catalog.ts). Изменения должны включать соответствующие тесты и пересобранные файлы настольного дополнения. Pull request приветствуются; для воспроизводимых ошибок [откройте issue](https://github.com/halilogia/antigravity-model-hub/issues), указав тип и версию приложения, ОС и диагностические данные.
 
 <a id="license-and-credits"></a>
 
@@ -401,6 +401,6 @@ CI выполняется в Windows, macOS и Linux с локальными т�
 
 Логотип Antigravity взят из [официальных материалов Google для прессы](https://antigravity.google/press).
 
-Проект поддерживает **[vahapogut](https://github.com/vahapogut)** · [LinkedIn](https://www.linkedin.com/in/abdulvahap-ogut-343992398/)
+Проект поддерживает **[Halil Emre (halilogia)](https://github.com/halilogia)** (Upstream: **[vahapogut](https://github.com/vahapogut)**) · [LinkedIn](https://www.linkedin.com/in/abdulvahap-ogut-343992398/)
 
 <p align="center"><a href="#quick-links">↑ К быстрым ссылкам</a></p>

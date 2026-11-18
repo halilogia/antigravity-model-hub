@@ -1,10 +1,11 @@
+// Modified from vahapogut/antigravity-add-model@e77954b — see NOTICE.
 /** Addon-owned channels only; vendor desktop APIs are left intact. */
 import { app, ipcMain, shell } from 'electron';
 import * as path from 'node:path';
 import * as cryptoStore from './cryptoStore';
 import { createModelManager } from './modelManagement';
 import { createModelActions } from './modelActions';
-import { createOpenCodeConnections } from './features/opencode-connection';
+import { createOpenCodeConnections } from './features/opencode-connection/index';
 
 export function registerCustomModelHandlers(): void {
   const manager = createModelManager(path.join(app.getPath('home'), '.gemini', 'antigravity', 'opencode-model-bridge'), cryptoStore, (url) =>

@@ -10,6 +10,8 @@ Changes made in this derivative:
   (src/features/opencode-picker).
 - Added independent, encrypted storage of OpenCode API keys
   (src/features/opencode-connection).
+- Added Antigravity 2.32+ baseLsArgs spread arguments runtime patch support
+  (scripts/runtime-patch.mjs).
 - Integrated both features into the settings preload and build script.
 - Removed upstream example models from the initial catalog.
 - Replaced the Google Antigravity logo in the README with a disclaimer.
